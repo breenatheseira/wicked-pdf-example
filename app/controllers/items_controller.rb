@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   # GET /items
   # GET /items.json
@@ -10,14 +10,6 @@ class ItemsController < ApplicationController
   # GET /items/1
   # GET /items/1.json
   def show
-    @item = Item.find(1)
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "sample", 
-               template: 'items/show.html.erb'
-      end
-    end
   end
 
   # GET /items/new
@@ -66,6 +58,16 @@ class ItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to items_url, notice: 'Item was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def pdf
+    @items = Item.all
+    respond_to do |format|
+      format.pdf do
+        render pdf: "sample", 
+               template: 'items/index.html.erb'
+      end
     end
   end
 
