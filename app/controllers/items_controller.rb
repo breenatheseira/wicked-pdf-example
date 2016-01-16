@@ -61,12 +61,15 @@ class ItemsController < ApplicationController
     end
   end
 
-  def pdf
+  def sample
     @items = Item.all
+    # http://localhost:3000/render-pdf.pdf
+    # attachment : as download
     respond_to do |format|
       format.pdf do
-        render pdf: "sample", 
-               template: 'items/index.html.erb'
+        render pdf: "sample" 
+               # template: 'items/index.html.erb',
+               # disposition: "attachment"
       end
     end
   end
